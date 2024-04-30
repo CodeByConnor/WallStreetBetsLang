@@ -1,6 +1,6 @@
 input "enter the ticker that will set you free of your 9-5 " => ticker_symbol
 portfolioBalance = 1500
-ticker_price = 150
+ticker_price = 150 
 def go_to_the_MF_moon(){
     YOLO AAPL 10 CALL @ strike=250 exp="31 July 2024 (W) 100" 
     }
