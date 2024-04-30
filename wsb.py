@@ -4,7 +4,7 @@ import time # timer
 import pandas as pd # data analysis and manipulation ( nasdaq tickers )
 import os # debug my own directory
 from textx import metamodel_from_file
-
+ 
 try:
     # loading in our grammar and sample hello_world.wsb program     
     hello_meta = metamodel_from_file('wsb.tx')
