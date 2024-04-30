@@ -1,0 +1,76 @@
+Model:
+    statements*=Statement
+;
+
+Statement:
+    IfStatement | FunctionDef | FunctionCall | PrintStatement | Assignment | StockOperation | InputStatement
+;
+
+IfStatement:
+    'if' condition=Expression '{' then=[Statement]* '}' 'else' '{' else=[Statement]* '}'
+;
+
+InputStatement:
+    'input' prompt=STRING '=>' variable=ID
+;
+
+FunctionDef:
+    'def' name=ID '(' params=Params? ')' '{' body=[Statement]* '}'
+;
+
+FunctionCall:
+    name=ID '(' arguments=Arguments? ')'
+;
+
+Expression:
+    SimpleExpression | ArithmeticExpression | ComparisonExpression
+;
+
+ComparisonExpression:
+    left=SimpleExpression op=ComparisonOperator right=SimpleExpression
+;
+
+SimpleExpression:
+    Term | '(' Expression ')' 
+;
+
+ArithmeticExpression:
+    left=Term op=ArithmeticOperator right=Term
+;
+
+PrintStatement:
+    'print' expression=Expression
+;
+
+StockOperation:
+    command=StockCommand stock=ID quantity=INT
+    ( 'CALL' | 'PUT' ) '@' 'strike' '=' price=DOUBLE 'exp' '=' time=STRING
+;
+
+ArithmeticOperator: '+' | '-' | '*' | '/';
+
+ComparisonOperator: '<' | '<=' | '>' | '>=' | '==' | '!=';
+
+StockCommand: 'YOLO' | 'HODL';
+
+Assignment:
+    variable=ID '=' value=Expression
+;
+
+Params: parameters+=ID (',' parameters+=ID)*;
+
+Arguments: arguments+=Expression (',' arguments+=Expression)*;
+
+Ticker:
+'AAPL' | 'MSFT' | 'AMZN' | 'GOOGL' | 'FB' | 'BRK.B' | 'JNJ' | 'PG' | 'JPM' | 'V' | 'MCD' | 'KO' | 'GS' | 'DIS' | 'IBM' | 'CVX' | 'XOM'
+;
+
+
+Term:
+    ID | DOUBLE | INT | STRING | FunctionCall | StockOperation | Ticker
+;
+
+DOUBLE: /\d+(\.\d+)?/;
+INT: /\d+/;
+ID: /[a-zA-Z_][a-zA-Z0-9_]*/;
+STRING: /".*?"/;

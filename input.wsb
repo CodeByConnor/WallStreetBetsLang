@@ -1,0 +1,2 @@
+input "enter the ticker that will set you free of your 9-5 " => ticker_symbol
+print ticker_symbol
